@@ -1,0 +1,2 @@
+C++ module for processing sound from NAO's front microphone and writing spectrum data to ALMemory. Runs directly on the robot.
+Works with NAOSoundSpectrum.java and NAOSoundSpectrogram.java.

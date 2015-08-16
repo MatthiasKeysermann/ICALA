@@ -1,0 +1,2 @@
+C++ module for reading spectrum data from ALMemory and generating sound on NAO's speakers. Runs directly on the robot.
+Works with NAOSoundSpectrum.java and NAOSoundSpectrogram.java.

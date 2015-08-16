@@ -1,0 +1,86 @@
+ICALA: Incremental Clustering & Associative Learning Architecture
+Version: 1.0
+Date: August 2015
+Author: Matthias Keysermann
+Email: matthias.keysermann@web.de
+
+ICALA is a learning and memory architecture for robots and is mainly based on two methods: the Modified Self-Organizing Incremental Neural Network (M-SOINN) and the Temporal-Order Sensitive Associative Memory (TOSAM). M-SOINN incrementally clusters real-valued input patterns and TOSAM learns associations based on the co-occurrence of inputs. A typical architecture setup consists of a separate M-SOINN module for each input source (e.g. sensor) and TOSAM. Each M-SOINN module regularly receives input patterns, clusters these inputs and provides corresponding cluster data to TOSAM. TOSAM stores these clusters as units in an incrementally growing network and creates associations based on the co-occurrence of two different inputs. Additionally, each M-SOINN module reads out the activation levels of its clusters and computes an output pattern that can be used to control an actuator.
+
+Further information on ICALA can be found in:
+Keysermann, Matthias U. and Vargas, Patricia A. Towards Autonomous Robots Via an Incremental Clustering and Associative Learning Architecture. Cognitive Computation, 7(4):414-433, 2015
+
+Further information on SOINN can be found in:
+Furao, Shen and Hasegawa, Osamu. An incremental network for on-line unsupervised classification and topology learning. Neural Networks, 19(1):90-106, 2006.
+
+
+
+Usage examples
+--------------
+
+Testing M-SOINN:
+- Run soinnm.gui.Display2D to test M-SOINN on a 2-dimensional data distribution with 3 classes.
+- Observe how 3 cluster emerge.
+
+Testing TOSAM:
+- Run tosam.gui.Monitor to start TOSAM with a GUI window for monitoring the status.
+- Run input.gui.KeyReader to provide inputs by pressing keys on the keyboard (window must be active).
+- Press multiple keys together to train a group of items. Hold to strengthen the associations.
+- Press (and hold) a single (previously trained) key to provide a recall cue.
+- Press different keys in a row to train a sequence of items. Repeat to strengthen the associations until the strongest weights are have values of 0.8 or higher.
+- Press (and immediately release) the first key of the sequence to provide a recall cue.
+
+Testing ICALA:
+- Run tosam.gui.Monitor to start TOSAM with a GUI window for monitoring the status.
+- Run interactor.gui.Signs to automatically provide visual inputs in the form of road signs.
+- Set "Sign Order" to SEQUENTIAL and choose a higher "Time per Sign" (e.g. 5000 ms)
+- Run input.gui.KeyReader to provide inputs by pressing keys on the keyboard (window must be active).
+- Associate different keys with different signs by pressing keys according to which signs is currently presented.
+- In the Signs module, stop the learning process by unticking the checkbox "Learn" (inputs will be ignored).
+- Press (and hold) a key to provide a recall cue and observe the output in the Signs module.
+
+Testing ICALA with NAO T14:
+- Configure NAOHostPort.txt to contain the IP address of your NAO robot and the port for NAOqi.
+- Run tosam.gui.Monitor to start TOSAM with a GUI window to monitor the status.
+- Run interactor.gui.NAOCamera to provide visual inputs captured by the camera of NAO.
+- Run interactor.gui.NAOJointsArms to provide joint angle readings of the arms of NAO.
+- Lower both arms of the robot and leave the area in front of the camera free (i.e. static background). Wait until a strong association has been formed.
+- Raise both arms of the robot and show your face in front of the camera (i.e. another visual pattern). Wait until a strong association has been formed.
+- In the NAOJointsArms module, stop the learning process by unticking the checkbox "Learn" (inputs will be ignored).
+- In the NAOJointsArms module, start the recall process by ticking the checkbox "Recall" (the computed output will control the arms).
+- Leave the area in front of the camera free and wait for NAO to recall the corresponding pose (both arms should be lowered).
+- Show your face in front of the camera and wait for NAO to recall the corresponding pose (both arms should be raised).
+- Train additional poses with different visual inputs.
+
+
+
+Extending ICALA
+---------------
+
+- For writing additional M-SOINN modules, see packages "interactor" and "interactor.gui" for examples.
+- For directly sending data to TOSAM (without using M-SOINN for clustering), see packages "input" and "input.gui" for examples.
+- For directly receiving data from TOSAM (without using weighted averaging), see packages "output" and "output.gui" for examples.
+- For making changes to M-SOINN, see packages "soinnm" and "soinnm.gui".
+- For making changes to TOSAM, see packages "tosam" and "tosam.gui".
+- For replacing M-SOINN with another method, see package "interactor" and modify "InteractorUDP.java".
+- For replacing TOSAM with another method, see packages "tdam" and "tdam.gui" for the Temporal Difference Associative Memory (TDAM) as an example.
+
+
+
+Copyright
+---------
+
+ICALA is distributed under the GNU public license. Please read the file COPYING for further information.
+
+
+
+Third-Party Licenses
+--------------------
+
+jnaoqi - Copyright by Aldebaran Robotics
+https://community.aldebaran.com/en/resources/software
+
+mnist-tools - Licensed under the Artistic License/GPL
+https://code.google.com/p/mnist-tools/
+
+JHLabs Java Image Filters - Licensed under the Apache License, Version 2.0
+http://www.jhlabs.com/ip/filters/index.html

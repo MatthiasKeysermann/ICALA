@@ -1,0 +1,10 @@
+The AT&T Database of Faces is available at http://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html
+
+In order to install the required files, a shell script can be executed:
+$ ./setup_att.sh
+
+This shell script will:
+- download att_faces.zip
+- unzip att_faces.zip
+- convert the .pgm files to .png files
+- remove the .pgm files
